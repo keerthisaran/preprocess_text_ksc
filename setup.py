@@ -17,7 +17,7 @@ setuptools.setup(
                  'Operating System :: OS Independent'],
     install_requires=[
         "spacy>=2.3.5",
-        "unicodedata",
+        # "unicodedata",
         "textblob>=0.15.3",
         "pandas>=1.2.2"],
     python_requires='>=3.5' 

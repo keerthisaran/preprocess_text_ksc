@@ -130,7 +130,7 @@ def _get_expanded(string):
     
     if type(string) is str:
         for key,value in contractions.items():
-            string.replace(key,value)
+            string=string.replace(key,value)
         return string
     return string
             
@@ -148,7 +148,7 @@ def _remove_emails(string):
     return string
 
 def _get_urls(string):
-    urls=re.findall(r'(http|https|ftp|ssh)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?', x)
+    urls=re.findall(r'(http|https|ftp|ssh)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?', string)
     return urls
 
 def _get_url_counts(string):
@@ -156,7 +156,7 @@ def _get_url_counts(string):
     return len(urls)
 
 def _remove_urls(string):
-    string=re.sub(r'(http|https|ftp|ssh)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?','', x)
+    string=re.sub(r'(http|https|ftp|ssh)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?','', string)
     return string
 
 

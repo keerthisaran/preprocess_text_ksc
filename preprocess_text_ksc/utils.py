@@ -128,11 +128,11 @@ def _get_expanded(string):
     'bak': 'back',
     'brng': 'bring'}
     
-    if type(x) is str:
+    if type(string) is str:
         for key,value in contractions.items():
-            x.replace(key,value)
-        return x
-    return x
+            string.replace(key,value)
+        return string
+    return string
             
 def _get_emails(string):
     
@@ -152,7 +152,7 @@ def _get_urls(string):
     return urls
 
 def _get_url_counts(string):
-    urls=_get_url(string)
+    urls=_get_urls(string)
     return len(urls)
 
 def _remove_urls(string):

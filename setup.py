@@ -4,7 +4,7 @@ with open('README.md','r') as f:
     long_description=f.read()
     
 setuptools.setup(
-    name='preprocess_kc',
+    name='preprocess_text_ksc',
     version='0.0.1',
     author='kcs',
     author_email='blah',

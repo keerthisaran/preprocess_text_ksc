@@ -1,4 +1,4 @@
-from preprocess_kc import utils
+from preprocess_text_ksc import utils
 
 __version__='0.0.1'
 

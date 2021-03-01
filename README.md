@@ -3,7 +3,7 @@
 This python package is prepared by KSC
 
 Install
-`pip install git+ssh://git@github.com:keerthisaran/preprocess_text_ksc.git`
+`pip install git+ssh://git@github.com/keerthisaran/preprocess_text_ksc.git`
 
 Uninstall
 

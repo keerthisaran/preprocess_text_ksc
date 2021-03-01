@@ -15,5 +15,10 @@ setuptools.setup(
     classifiers=['Programming Language :: Python :: 3',
                  'License  :: OSI Approved :: MIT License',
                  'Operating System :: OS Independent'],
+    install_requires=[
+        "spacy>=2.3.5",
+        "unicodedata>=13.0.0.post",
+        "textblob>=0.15.3",
+        "pandas>=1.2.2"],
     python_requires='>=3.5' 
 )

@@ -199,7 +199,8 @@ def _remove_common_words(string,n=20):
     
     words=string.split()
     freq_word_counts=Counter(words).most_common(n)
-    words=[word for word in words if word not in freq_word_counts.keys()]
+    freq_words=set([word for word,count in freq_word_counts])
+    words=[word for word in words if word not in freq_words]
     
     string=' '.join(words)
     return string
@@ -209,7 +210,8 @@ def _remove_rare_words(string,n=20):
     
     words=string.split()
     freq_word_counts=Counter(words).most_common()[-n:]
-    words=[word for word in words if word not in freq_word_counts.keys()]
+    freq_words=set([word for word,count in freq_word_counts])
+    words=[word for word in words if word not in freq_words]
     
     string=' '.join(words)
     return string

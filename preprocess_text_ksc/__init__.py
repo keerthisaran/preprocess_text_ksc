@@ -61,4 +61,17 @@ def correct_spells(string):
     return utils._correct_spells(string)
 
 
+from collections.abc import Iterable
+def apply_pipeline(piple_line,series):
+    
+    for func_and_args in piple_line:
+        if isinstance(func_and_args,Iterable):
+            func,args=func_and_args
+            series=series.apply(lambda x:func(x,*args))
+        else:
+            func=func_and_args
+            series=series.apply(func)
+            
+        print(str(func),'complete')
+    return series
 

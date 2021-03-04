@@ -218,4 +218,27 @@ def _correct_spells(string):
     return string
 
     
+def _lower(string):
+    return str(string).lower()
+
+def _repl_white_newline(string):
+    import re
+    string=re.sub(r'\n|\s',' ',string)
+    return ' '.join(string.split())
+
+def _remove_punct(string,punc_lets):
     
+    for p in punc_lets:
+        string=string.replace(p,' ')
+    
+    string=' '.join(string.split())
+    
+    return string
+import string as string_module
+def _sep_punct_for_tokens(string,punc_lets=None):
+    if punc_lets is None:
+        punc_lets=string_module.punctuation+'\n'
+    string=re.sub(r'([{punc_lets}])'.format(punc_lets=punc_lets),
+                  r' \1 ',string)
+    string=' '.join(string.split())
+    return string

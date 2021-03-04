@@ -10,6 +10,7 @@ import re
 from bs4 import BeautifulSoup
 import unicodedata
 from textblob import TextBlob
+from collections import Counter
 
 def _get_word_counts(string):
     length=len(str(string).split())
@@ -197,7 +198,7 @@ def _make_base(string):
 def _remove_common_words(string,n=20):
     
     words=string.split()
-    freq_word_counts=pd.Series(words).value_counts().sort_values().tail(n).to_dict()
+    freq_word_counts=Counter(words).most_common(n)
     words=[word for word in words if word not in freq_word_counts.keys()]
     
     string=' '.join(words)
@@ -207,7 +208,7 @@ def _remove_common_words(string,n=20):
 def _remove_rare_words(string,n=20):
     
     words=string.split()
-    freq_word_counts=pd.Series(words).value_counts().sort_values().head(n).to_dict()
+    freq_word_counts=Counter(words).most_common()[-n:]
     words=[word for word in words if word not in freq_word_counts.keys()]
     
     string=' '.join(words)

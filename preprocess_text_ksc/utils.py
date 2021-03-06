@@ -245,3 +245,33 @@ def _sep_punct_for_tokens(string,punc_lets=None):
                   r' \1 ',string)
     string=' '.join(string.split())
     return string
+
+
+from collections.abc import Iterable
+def apply_pipeline(piple_line,series):
+    '''
+    args:
+        pipeline list of functions and arguments
+        pipeline=[
+            _lower,
+            _remove_accented_chars,
+            _get_expanded,
+            _remove_html_tags,
+            _remove_urls,
+            _repl_white_newline,
+            _sep_punct_for_tokens
+    #            [_remove_punct,[',"'+"'"]]
+            ]
+        series: pandas series
+                  
+    '''
+    for func_and_args in piple_line:
+        if isinstance(func_and_args,Iterable):
+            func,args=func_and_args
+            series=series.apply(lambda x:func(x,*args))
+        else:
+            func=func_and_args
+            series=series.apply(func)
+            
+        print(str(func),'complete')
+    return series

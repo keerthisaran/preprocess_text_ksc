@@ -65,23 +65,13 @@ def repl_white_newline(string):
     string=re.sub(r'\n|\s',' ',string)
     return ' '.join(string.split())
 
-def _remove_punct(string,punc_lets):
+def remove_punct(string,punc_lets):
     
-    
-    for p in punc_lets:
-        string=string.replace(p,' ')
-    
-    string=' '.join(string.split())
-    
+    string=utils._remove_punct(string,punc_lets)
     return string
-import string as string_module
-import re
-def _sep_punct_for_tokens(string,punc_lets=None):
-    if punc_lets is None:
-        punc_lets=string_module.punctuation+'\n'
-    string=re.sub(r'([{punc_lets}])'.format(punc_lets=punc_lets),
-                  r' \1 ',string)
-    string=' '.join(string.split())
+
+def sep_punct_for_tokens(string,punc_lets=None):
+    string=utils._sep_punct_for_tokens(string,punc_lets)
     return string
 
 from collections.abc import Iterable
@@ -90,13 +80,13 @@ def apply_pipeline(piple_line,series):
     args:
         pipeline list of functions and arguments
         pipeline=[
-            _lower,
-            _remove_accented_chars,
-            _get_expanded,
-            _remove_html_tags,
-            _remove_urls,
-            _repl_white_newline,
-            _sep_punct_for_tokens
+            lower,
+            remove_accented_chars,
+            get_expanded,
+            remove_html_tags,
+            remove_urls,
+            repl_white_newline,
+            sep_punct_for_tokens
     #            [_remove_punct,[',"'+"'"]]
             ]
         series: pandas series

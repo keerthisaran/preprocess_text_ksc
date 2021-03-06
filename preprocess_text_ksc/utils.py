@@ -11,6 +11,8 @@ from bs4 import BeautifulSoup
 import unicodedata
 from textblob import TextBlob
 from collections import Counter
+from sklearn import model_selection
+from collections.abc import Iterable
 
 def _get_word_counts(string):
     length=len(str(string).split())
@@ -247,19 +249,30 @@ def _sep_punct_for_tokens(string,punc_lets=None):
     return string
 
 
-from collections.abc import Iterable
-def apply_pipeline(piple_line,series):
+def _create_folds(folds,label,train_data_path):
+      
+    train_df=pd.read_csv(train_data_path)
+    train_df=train_df.sample(frac=1).reset_index(drop=True)
+    kf=model_selection.StratifiedKFold(n_splits=folds)
+    train_df['kfold']=-1
+    train_df[label]=train_df[label].astype(str)
+    for fold_ind,(train_inds,valid_inds) in enumerate(kf.split(train_df,train_df[label])):
+        train_df.loc[valid_inds,'kfold']=fold_ind
+    
+    return train_df
+
+def _apply_pipeline(piple_line,series):
     '''
     args:
         pipeline list of functions and arguments
         pipeline=[
-            _lower,
-            _remove_accented_chars,
-            _get_expanded,
-            _remove_html_tags,
-            _remove_urls,
-            _repl_white_newline,
-            _sep_punct_for_tokens
+            lower,
+            remove_accented_chars,
+            get_expanded,
+            remove_html_tags,
+            remove_urls,
+            repl_white_newline,
+            sep_punct_for_tokens
     #            [_remove_punct,[',"'+"'"]]
             ]
         series: pandas series
@@ -275,3 +288,15 @@ def apply_pipeline(piple_line,series):
             
         print(str(func),'complete')
     return series
+
+def _create_folds(df,folds,label,shuffle,fold_col='kfold'):
+      
+    if shuffle:
+      df=df.sample(frac=1).reset_index(drop=True)
+    kf=model_selection.StratifiedKFold(n_splits=folds)
+    df[fold_col]=-1
+    df[label]=df[label].astype(str)
+    for fold_ind,(train_inds,valid_inds) in enumerate(kf.split(df,df[label])):
+        train_df.loc[valid_inds,fold_col]=fold_ind
+    
+    return df

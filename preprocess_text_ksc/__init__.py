@@ -74,31 +74,12 @@ def sep_punct_for_tokens(string,punc_lets=None):
     string=utils._sep_punct_for_tokens(string,punc_lets)
     return string
 
-from collections.abc import Iterable
-def apply_pipeline(piple_line,series):
-    '''
-    args:
-        pipeline list of functions and arguments
-        pipeline=[
-            lower,
-            remove_accented_chars,
-            get_expanded,
-            remove_html_tags,
-            remove_urls,
-            repl_white_newline,
-            sep_punct_for_tokens
-    #            [_remove_punct,[',"'+"'"]]
-            ]
-        series: pandas series
-                  
-    '''
-    for func_and_args in piple_line:
-        if isinstance(func_and_args,Iterable):
-            func,args=func_and_args
-            series=series.apply(lambda x:func(x,*args))
-        else:
-            func=func_and_args
-            series=series.apply(func)
-            
-        print(str(func),'complete')
+def apply_pipeline(pipeline,series):
+    series=utils._apply_pipeline(pipeline,series)
+    
     return series
+
+def create_folds(df,folds,label,shuffle,fold_col='kfold'):
+    df=utils.create_folds(df,folds,label,shuffle,fold_col)
+    return df
+    

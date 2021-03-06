@@ -294,7 +294,7 @@ def _create_folds(df,folds,label,shuffle,fold_col='kfold'):
     if shuffle:
       df=df.sample(frac=1).reset_index(drop=True)
     kf=model_selection.StratifiedKFold(n_splits=folds)
-    df[fold_col]=-1
+    df[fold_col]=-1 
     df[label]=df[label].astype(str)
     for fold_ind,(train_inds,valid_inds) in enumerate(kf.split(df,df[label])):
         train_df.loc[valid_inds,fold_col]=fold_ind

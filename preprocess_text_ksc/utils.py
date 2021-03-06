@@ -249,17 +249,6 @@ def _sep_punct_for_tokens(string,punc_lets=None):
     return string
 
 
-def _create_folds(folds,label,train_data_path):
-      
-    train_df=pd.read_csv(train_data_path)
-    train_df=train_df.sample(frac=1).reset_index(drop=True)
-    kf=model_selection.StratifiedKFold(n_splits=folds)
-    train_df['kfold']=-1
-    train_df[label]=train_df[label].astype(str)
-    for fold_ind,(train_inds,valid_inds) in enumerate(kf.split(train_df,train_df[label])):
-        train_df.loc[valid_inds,'kfold']=fold_ind
-    
-    return train_df
 
 def _apply_pipeline(piple_line,series):
     '''
@@ -297,6 +286,6 @@ def _create_folds(df,folds,label,shuffle,fold_col='kfold'):
     df[fold_col]=-1 
     df[label]=df[label].astype(str)
     for fold_ind,(train_inds,valid_inds) in enumerate(kf.split(df,df[label])):
-        train_df.loc[valid_inds,fold_col]=fold_ind
+        df.loc[valid_inds,fold_col]=fold_ind
     
     return df

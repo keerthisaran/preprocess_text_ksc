@@ -80,6 +80,6 @@ def apply_pipeline(pipeline,series):
     return series
 
 def create_folds(df,folds,label,shuffle,fold_col='kfold'):
-    df=utils.create_folds(df,folds,label,shuffle,fold_col)
+    df=utils._create_folds(df,folds,label,shuffle,fold_col)
     return df
     
